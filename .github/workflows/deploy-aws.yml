@@ -35,7 +35,7 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ${{secrets.DOCKERHUB_USERNAME}}/blog-backend
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/blog-back
 
       - name: Build and push Front image
         uses: docker/build-push-action@v5
@@ -73,6 +73,6 @@ jobs:
             sleep 20
             docker compose down
             sleep 15
-            docker rmi ${{secrets.DOCKERHUB_USERNAME}}/blog-backend ${{secrets.DOCKERHUB_USERNAME}}/blog-frontend || true
+            docker rmi ${{secrets.DOCKERHUB_USERNAME}}/blog-back ${{secrets.DOCKERHUB_USERNAME}}/blog-front || true
             sleep 5
             docker compose up -d
