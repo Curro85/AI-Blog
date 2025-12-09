@@ -11,23 +11,22 @@ const port = config.PORT;
 
 app.use(cors());
 app.use(express.json());
-console.log("testing workflow v2");
 
-// cron.schedule("* * * * *", async () => {
-//   const data = await generateArticle();
-//   try {
-//     const title = data.title;
-//     const content = data.content;
+cron.schedule("*/5 * * * *", async () => {
+  const data = await generateArticle();
+  try {
+    const title = data.title;
+    const content = data.content;
 
-//     const save = await Article.create({
-//       title,
-//       content,
-//     });
-//     console.log("Article saved correctly");
-//   } catch (error) {
-//     console.log("Error", error);
-//   }
-// });
+    const save = await Article.create({
+      title,
+      content,
+    });
+    console.log("Article saved correctly");
+  } catch (error) {
+    console.log("Error", error);
+  }
+});
 
 app.get("/", async (req, res) => {});
 
