@@ -1,4 +1,4 @@
-import{ useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ArticleList from "./ArticleList";
 import ArticleDetail from "./ArticleDetail";
 
@@ -25,7 +25,7 @@ function Blog() {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       {!selectedArticle && (
         <ArticleList articles={articles} onSelectArticle={setSelectedArticle} />
       )}

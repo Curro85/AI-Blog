@@ -32,7 +32,7 @@ app.get("/", async (req, res) => {});
 
 app.get("/articles", async (req, res) => {
   try {
-    const articles = await Article.findAll();
+    const articles = await Article.findAll({ order: [["createdAt", "DESC"]] });
     return res.json({ articles });
   } catch (error) {
     console.log("Error", error);
