@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import ArticleList from "./ArticleList";
 import ArticleDetail from "./ArticleDetail";
 
+const API_URL = import.meta.env.VITE_URL_BACKEND_PROD;
+
 function Blog() {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [articles, setArticles] = useState([]);
@@ -12,7 +14,7 @@ function Blog() {
 
   const loadArticles = async () => {
     try {
-      const response = await fetch("http://52.54.234.219:3000/articles");
+      const response = await fetch(`${API_URL}`);
       if (!response.ok) {
         console.log("Something went wrong");
         return;
