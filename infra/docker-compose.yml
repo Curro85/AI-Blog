@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: blog-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - sqlite_data:/app
+    env_file:
+      - ../backend/src/.env
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: blog-frontend
+    ports:
+      - "8080:80"
+
+volumes:
+  sqlite_data:
