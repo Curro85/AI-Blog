@@ -12,7 +12,7 @@ function Blog() {
 
   const loadArticles = async () => {
     try {
-      const response = await fetch("http://localhost:3000/articles");
+      const response = await fetch("http://52.54.234.219:3000/articles");
       if (!response.ok) {
         console.log("Something went wrong");
         return;
