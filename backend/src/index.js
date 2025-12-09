@@ -12,7 +12,7 @@ const port = config.PORT;
 app.use(cors());
 app.use(express.json());
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("5 9 * * *", async () => {
   const data = await generateArticle();
   try {
     const title = data.title;
