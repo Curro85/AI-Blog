@@ -69,9 +69,10 @@ jobs:
           key: ${{secrets.AWS_PRIVATE_KEY}}
           port: 22
           script: |
-            sleep 30
+            cd /home/admin/infra
+            sleep 20
             docker compose down
             sleep 15
-            docker rmi ${{secrets.DOCKERHUB_USERNAME}}/backend ${{secrets.DOCKERHUB_USERNAME}}/frontend
+            docker rmi ${{secrets.DOCKERHUB_USERNAME}}/blog-backend ${{secrets.DOCKERHUB_USERNAME}}/blog-frontend
             sleep 5
             docker compose up -d
