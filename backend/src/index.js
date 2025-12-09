@@ -11,6 +11,7 @@ const port = config.PORT;
 
 app.use(cors());
 app.use(express.json());
+console.log("testing workflow");
 
 // cron.schedule("* * * * *", async () => {
 //   const data = await generateArticle();

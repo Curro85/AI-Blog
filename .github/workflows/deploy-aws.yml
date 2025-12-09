@@ -73,6 +73,6 @@ jobs:
             sleep 20
             docker compose down
             sleep 15
-            docker rmi ${{secrets.DOCKERHUB_USERNAME}}/blog-backend ${{secrets.DOCKERHUB_USERNAME}}/blog-frontend
+            docker rmi ${{secrets.DOCKERHUB_USERNAME}}/blog-backend ${{secrets.DOCKERHUB_USERNAME}}/blog-frontend || true
             sleep 5
             docker compose up -d
