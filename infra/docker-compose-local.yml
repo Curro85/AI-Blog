@@ -1,6 +1,8 @@
 services:
   backend:
-    image: curro85/blog-back
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
     container_name: blog-backend
     ports:
       - "3000:3000"
@@ -10,7 +12,9 @@ services:
       - ../backend/src/.env
 
   frontend:
-    image: curro85/blog-front
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
     container_name: blog-frontend
     ports:
       - "8080:80"

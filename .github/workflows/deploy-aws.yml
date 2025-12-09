@@ -1,0 +1,77 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - backend/**
+      - frontend/**
+      - infra/**
+  pull_request:
+    branches: [main]
+    paths:
+      - backend/**
+      - frontend/**
+      - infra/**
+
+env:
+  COMPOSE: ./infra/docker-compose.yml
+
+jobs:
+  build:
+    name: Building images and pushing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Dockerhub
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_TOKEN}}
+
+      - name: Build and push Backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/blog-backend
+
+      - name: Build and push Front image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/blog-front
+
+  aws:
+    name: Deploy to AWS
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy docker-compose via SSH
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{secrets.AWS_HOSTNAME}}
+          username: ${{secrets.AWS_USERNAME}}
+          port: 22
+          key: ${{secrets.AWS_PRIVATE_KEY}}
+          source: ${{env.COMPOSE}}
+          target: /home/admin
+
+      - name: Deploy docker services
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.AWS_HOSTNAME}}
+          username: ${{secrets.AWS_USERNAME}}
+          key: ${{secrets.AWS_PRIVATE_KEY}}
+          port: 22
+          script: |
+            sleep 30
+            docker compose down
+            sleep 15
+            docker rmi ${{secrets.DOCKERHUB_USERNAME}}/backend ${{secrets.DOCKERHUB_USERNAME}}/frontend
+            sleep 5
+            docker compose up -d
