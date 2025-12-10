@@ -2,9 +2,10 @@
 
 ### Link to the Blog:
 [http://52.54.234.219:8080/](http://52.54.234.219:8080/)
+The blog create an Article everyday at 10:15 UTC.
 
 #### Disclaimer:
-Maybe the blog is down for a brief time, see **Issues creating this project**.
+Maybe the blog is down for a brief time, see [**Issues creating this project**.](https://github.com/Curro85/AI-Blog?tab=readme-ov-file#issues-creating-this-project)
 
 ### Starting the project locally:
 - Using terminal or UI create a directory which will contain the project.
