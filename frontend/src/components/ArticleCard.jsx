@@ -7,22 +7,24 @@ function ArticleCard({ article, onSelect }) {
   };
 
   return (
-    <li className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-6 border border-gray-100">
-      <h2 className="text-xl font-semibold text-gray-800 mb-3 line-clamp-2">
+    <li
+      className="bg-zinc-900 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 p-6 border border-zinc-800 hover:border-zinc-700 group cursor-pointer"
+      onClick={() => onSelect(article)}
+    >
+      <h2 className="text-xl font-semibold text-zinc-100 mb-3 line-clamp-2 group-hover:text-blue-400 transition-colors">
         {article.title}
       </h2>
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs text-gray-500 font-medium">
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-xs text-zinc-500 font-medium">
           {formatDate(article.createdAt)}
         </span>
       </div>
-      <button
-        onClick={() => onSelect(article)}
-        className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors duration-200 flex items-center gap-1"
-      >
-        Leer más
-        <span className="text-lg">→</span>
-      </button>
+      <div className="text-blue-400 hover:text-blue-300 font-medium text-sm transition-colors duration-200 flex items-center gap-2">
+        Read more
+        <span className="text-lg group-hover:translate-x-1 transition-transform">
+          →
+        </span>
+      </div>
     </li>
   );
 }

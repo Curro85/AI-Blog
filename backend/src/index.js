@@ -29,8 +29,6 @@ cron.schedule("15 10 * * *", async () => {
   }
 });
 
-app.get("/", async (req, res) => {});
-
 app.get("/articles", async (req, res) => {
   try {
     const articles = await Article.findAll({ order: [["createdAt", "DESC"]] });
@@ -49,28 +47,6 @@ app.get("/articles/:id", async (req, res) => {
       return res.status(404).json({ message: "Article not found" });
     }
     return res.json({ article });
-  } catch (error) {
-    console.log("Error", error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.post("/articles", async (req, res) => {
-  try {
-    const title = req.body?.title;
-    const content = req.body?.content;
-
-    if (!title || !content) {
-      return res
-        .status(400)
-        .json({ message: "Bad request, title or content not found" });
-    }
-
-    const save = await Article.create({
-      title,
-      content,
-    });
-    return res.status(201).json({ article: save });
   } catch (error) {
     console.log("Error", error);
     return res.status(500).json({ message: "Internal server error" });
